@@ -5,20 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
-    <title>Цитаты Канье Уэста</title>
+    <title>Данные из 1С</title>
   </head>
   <body>
     <header class="header">
-      <div class="header__logo-container">
-        <img
-          src="https://pictures.s3.yandex.net/frontend-developer/dom_bom/logo.svg"
-          alt=""
-          class="header__logo"
-        />
-        <p class="header__logo-sub">Цитаты Канье Уэста</p>
-      </div>
-      <button class="header__btn">Ещё цитата</button>
+      <p class="header__logo-container">Логотип организации</p>
+      <button class="header__btn">Обновить данные</button>
     </header>
+
     <main class="container">
       <section class="wrapper">
         <div class="table__container"></div>
@@ -28,9 +22,9 @@
     <template id="table-template">
       <div class="table">
         <!-- <img src="" alt="Фотография" class="card__foto" /> -->
-        <h2 class="id__array"></h2>
-        <h3 class="title__array"></h3>
-        <h4 class="body__array"></h4>
+        <div class="table__col"><h2 class="id__array"></h2></div>
+        <div class="table__col"><h3 class="title__array"></h3></div>
+        <div class="table__col"><h4 class="body__array"></h4></div>
       </div>
     </template>
 

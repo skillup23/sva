@@ -4,8 +4,8 @@ body {
   -webkit-font-smoothing: antialiased;
   height: 100%;
   margin: 0;
-  background-color: #000;
-  color: #fff;
+  background-color: #f6f8f7;
+  color: #000000;
 }
 
 input,
@@ -14,11 +14,11 @@ button {
 }
 
 .header {
-  max-width: 468px;
+  max-width: 800px;
   height: 80px;
   margin: auto;
   display: flex;
-  padding-top: 30px;
+  padding: 30px 20px;
   align-items: baseline;
   justify-content: space-between;
 }
@@ -34,32 +34,37 @@ button {
   filter: invert(1);
 }
 
-.header__logo-sub {
-  margin-left: 10px;
-  margin-bottom: 25px;
-  font-size: 0.6em;
-}
-
 .container {
-  max-width: 468px;
+  max-width: 800px;
+  padding: 0 20px;
   margin: auto;
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
-.quote {
-  margin: 40px 0;
-  width: 100%;
-  font-size: 5.5em;
-  font-weight: bold;
-}
-
 .header__btn {
   font-size: 0.8em;
   width: 150px;
   height: 50px;
-  background-color: #ffdb4d;
+  color: #de1222;
+  background-color: #ffdf0a;
   border-radius: 2px;
   cursor: pointer;
+}
+
+.header__btn:hover {
+  background-color: #d5b900;
+}
+
+.table {
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.table__col {
+  padding: 5px;
+  box-shadow: 0px 0px 0px 1px rgb(114, 114, 114);
 }

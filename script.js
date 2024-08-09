@@ -1,69 +1,47 @@
-// async function getData() {
-//   const result = await fetch('https://jsonplaceholder.typicode.com/posts')
-//   if(!result.ok) {
-//     throw new Error(Error status:" ${res.status} from ${res.url()});
-// }
-// return result.json();
-// }
+const urlLink = "https://jsonplaceholder.typicode.com/posts";
+const urlLink2 = "https://jsonplaceholder.typicode.com/albums";
 
-// async function getData(url) {
-//   const result = await fetch(url);
-//   if (!result.ok) {
-//     throw new Error(Error, ' ${res.status} from ${res.url()}');
-//   }
-//   return result.json();
-// }
+const tableContainer = document.querySelector(".table__container");
+const buttonUpdate = document.querySelector(".header__btn");
 
-// let arr = [];
+async function getResponse(url) {
+  let response = await fetch(url);
+  let content = await response.json();
 
-// // Создаем массив Promise-объектов для запросов
-// const promises = function () {
-//   return getData(`https://jsonplaceholder.typicode.com/posts`);
-// };
+  tableContainer.innerHTML = "";
 
-// Promise.all(promises)
-//   .then((data) => {
-//     // Объединяем все данные в один массив
-//     // arr = data.flat();
-//     data.forEach(createTable);
-//     console.log(arr[0]); // Выводим первый элемент массива
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//   });
-
-// .then((response) => response.json())
-// .then((data) => {
-//   console.log(data);
-//   data.forEach(createTable);
-// })
-// .catch((err) => {
-//   console.log('Ошибка. Запрос не выполнен: ', err);
-// });
-// getData();
-
-async function fetchUsers(endpoint) {
-  const res = await fetch(endpoint);
-  const data = await res.json();
-  return data;
+  content.reverse().forEach((element) => {
+    createTable(element);
+  });
 }
 
-fetchUsers('https://jsonplaceholder.typicode.com/posts').then((data) => {
-  console.log(data);
-  data.map(createTable);
-  // data.forEach(createTable);
+getResponse(urlLink);
 
-  function createTable(item) {
-    const tableContainer = document.querySelector('.table__container');
-    const tableTemplate = document.querySelector('#table-template').content;
-    const tableElement = tableTemplate.querySelector('.table').cloneNode(true);
+function createTable(item) {
+  const tableTemplate = document.querySelector("#table-template").content;
+  const tableElement = tableTemplate.querySelector(".table").cloneNode(true);
 
-    tableElement.querySelector('.id__array').textContent = item.id;
-    tableElement.querySelector('.title__array').textContent = item.title;
-    tableElement.querySelector('.body__array').textContent = item.body;
-
-    tableContainer.prepend(cardElement);
+  if (!item.id) {
+    tableElement.querySelector(".id__array").textContent = "нет данных";
+  } else {
+    tableElement.querySelector(".id__array").textContent = item.id;
   }
-});
 
-// document.querySelector('.header__btn').addEventListener('click', updateArray);
+  if (!item.title) {
+    tableElement.querySelector(".title__array").textContent = "нет данных";
+  } else {
+    tableElement.querySelector(".title__array").textContent = item.title;
+  }
+
+  if (!item.body) {
+    tableElement.querySelector(".body__array").textContent = "нет данных";
+  } else {
+    tableElement.querySelector(".body__array").textContent = item.body;
+  }
+
+  tableContainer.prepend(tableElement);
+}
+
+buttonUpdate.addEventListener("click", function () {
+  getResponse(urlLink2);
+});
