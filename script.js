@@ -65,7 +65,7 @@ function createTable(array) {
 
   array.forEach((item) => {
     if (!item.Картинка) {
-      foto = '/placeholder.jpg';
+      foto = 'sva/placeholder.jpg';
     } else {
       foto = `data:image/jpeg;base64,${item.Картинка}`;
     }
