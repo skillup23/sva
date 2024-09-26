@@ -159,5 +159,5 @@ function createTable(array) {
 
 buttonUpdate.addEventListener('click', function () {
   tableContainer.innerHTML = '';
-  getResponse(apiLink5);
+  getResponse(apiLink4);
 });
