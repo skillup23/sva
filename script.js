@@ -1,6 +1,3 @@
-const apiLink = 'https://jsonplaceholder.typicode.com/posts';
-const apiLink2 = 'https://jsonplaceholder.typicode.com/albums';
-const apiLink3 = 'https://sva.corp.rarus-cloud.ru/UNF/hs/api_sva/price/get';
 const apiLink4 = 'https://skillup23-backend-timeweb-b537.twc1.net/sva';
 const apiLink5 = 'http://localhost:3456/sva';
 
@@ -100,64 +97,64 @@ function createTable(array) {
         </div>`;
   });
 
-  // const tableTemplate = document.querySelector('#table-template').content;
-  // const tableElement = tableTemplate.querySelector('.table').cloneNode(true);
-
-  // console.log(item);
-
-  // if (!item.Номенклатура) {
-  //   tableElement.querySelector('.nomenclature').textContent = 'нет данных';
-  // } else {
-  //   tableElement.querySelector('.nomenclature').textContent =
-  //     item.Номенклатура;
-  // }
-
-  // if (!item.Характеристика) {
-  //   tableElement.querySelector('.characteristic').textContent = 'нет данных';
-  // } else {
-  //   tableElement.querySelector('.characteristic').textContent =
-  //     item.Характеристика;
-  // }
-
-  // if (!item.Остаток) {
-  //   tableElement.querySelector('.total').textContent = 'нет данных';
-  // } else {
-  //   tableElement.querySelector('.total').textContent = item.Остаток;
-  // }
-
-  // if (!item.Цена) {
-  //   tableElement.querySelector('.price').textContent = 'нет данных';
-  // } else {
-  //   tableElement.querySelector('.price').textContent = item.Цена;
-  // }
-
-  // if (!item.Картинка) {
-  //   tableElement.querySelector('.card__foto').src = '/placeholder.png';
-  // } else {
-  //   // const kartinka = `data:image/jpeg;base64,${String(item.Картинка)}`;
-
-  //   // const reg = /\n+/g;
-
-  //   // let imageBase64 = kartinka.replace(reg, '');
-
-  //   // console.log(kartinka.replace(reg, ''));
-
-  //   // console.log(String(kartinka));
-  //   console.log(item.Картинка);
-
-  //   const kartinka = 111
-
-  //   tableElement.querySelector(
-  //     'card__foto'
-  //   ).src = `data:image/jpeg;base64,${kartinka}`;
-  // }
-
-  // tableContainer.prepend(tableElement);
-
   table.innerHTML = list;
 }
 
-buttonUpdate.addEventListener('click', function () {
-  tableContainer.innerHTML = '';
-  getResponse(apiLink4);
-});
+// buttonUpdate.addEventListener('click', function () {
+//   tableContainer.innerHTML = '';
+//   getResponse(apiLink4);
+// });
+
+// const tableTemplate = document.querySelector('#table-template').content;
+// const tableElement = tableTemplate.querySelector('.table').cloneNode(true);
+
+// console.log(item);
+
+// if (!item.Номенклатура) {
+//   tableElement.querySelector('.nomenclature').textContent = 'нет данных';
+// } else {
+//   tableElement.querySelector('.nomenclature').textContent =
+//     item.Номенклатура;
+// }
+
+// if (!item.Характеристика) {
+//   tableElement.querySelector('.characteristic').textContent = 'нет данных';
+// } else {
+//   tableElement.querySelector('.characteristic').textContent =
+//     item.Характеристика;
+// }
+
+// if (!item.Остаток) {
+//   tableElement.querySelector('.total').textContent = 'нет данных';
+// } else {
+//   tableElement.querySelector('.total').textContent = item.Остаток;
+// }
+
+// if (!item.Цена) {
+//   tableElement.querySelector('.price').textContent = 'нет данных';
+// } else {
+//   tableElement.querySelector('.price').textContent = item.Цена;
+// }
+
+// if (!item.Картинка) {
+//   tableElement.querySelector('.card__foto').src = '/placeholder.png';
+// } else {
+//   // const kartinka = `data:image/jpeg;base64,${String(item.Картинка)}`;
+
+//   // const reg = /\n+/g;
+
+//   // let imageBase64 = kartinka.replace(reg, '');
+
+//   // console.log(kartinka.replace(reg, ''));
+
+//   // console.log(String(kartinka));
+//   console.log(item.Картинка);
+
+//   const kartinka = 111
+
+//   tableElement.querySelector(
+//     'card__foto'
+//   ).src = `data:image/jpeg;base64,${kartinka}`;
+// }
+
+// tableContainer.prepend(tableElement);

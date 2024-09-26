@@ -4,7 +4,7 @@ body {
   -webkit-font-smoothing: antialiased;
   height: 100%;
   margin: 0;
-  background-color: #f6f8f7;
+  background-color: #fff;
   color: #000000;
 }
 
@@ -26,10 +26,10 @@ button {
 
 .header {
   max-width: 800px;
-  height: 80px;
+  /* height: 80px; */
   margin: auto;
   display: flex;
-  padding: 30px 20px;
+  padding: 0 20px;
   align-items: baseline;
   justify-content: space-between;
 }
@@ -40,9 +40,10 @@ button {
 }
 
 .header__logo {
-  width: 150px;
-  -webkit-filter: invert(1);
-  filter: invert(1);
+  width: 100px;
+  margin: auto;
+  /* -webkit-filter: invert(1);
+  filter: invert(1); */
 }
 
 .container {
