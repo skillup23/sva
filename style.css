@@ -8,6 +8,17 @@ body {
   color: #000000;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
 input,
 button {
   border: none;
@@ -36,7 +47,7 @@ button {
 
 .container {
   max-width: 800px;
-  padding: 0 20px;
+  padding: 0 10px;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -59,12 +70,72 @@ button {
 
 .table {
   margin-bottom: 10px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: row;
   gap: 10px;
+  border: solid gray 1px;
+  border-radius: 15px;
 }
 
-.table__col {
-  padding: 5px;
-  box-shadow: 0px 0px 0px 1px rgb(114, 114, 114);
+.table__section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 60%;
+  margin: auto;
+}
+
+.table__section_bottom {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.table__item {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: flex-start;
+}
+.table__item h4 {
+  font-size: 16px;
+}
+.table__item p {
+  font-size: 12px;
+  color: dimgray;
+}
+
+.table__item_bottom {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table__img {
+  width: 40%;
+  display: flex;
+}
+
+.nomenclature {
+  text-align: center;
+}
+
+.card__foto {
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 15px;
+}
+
+@media (min-width: 768px) {
+  .table__img {
+    width: 150px;
+    margin: 0;
+  }
+  .table__item h4 {
+    font-size: 18px;
+  }
+  .table__item p {
+    font-size: 16px;
+  }
 }
