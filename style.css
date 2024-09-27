@@ -103,7 +103,7 @@ button {
   font-size: 16px;
 }
 .table__item p {
-  font-size: 12px;
+  font-size: 14px;
   color: dimgray;
 }
 
@@ -126,6 +126,21 @@ button {
   width: 100%;
   margin: 0 auto;
   border-radius: 15px;
+}
+
+/* .total {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+}
+
+.total-title {
+  font-size: 14px !important;
+  margin-bottom: -2px;
+} */
+
+.total_foto {
+  width: 25px;
 }
 
 @media (min-width: 768px) {

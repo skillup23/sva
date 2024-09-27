@@ -67,6 +67,14 @@ function createTable(array) {
       foto = `data:image/jpeg;base64,${item.Картинка}`;
     }
 
+    if (item.ГрадацияОстатков === '1') {
+      totalImg = 'sva/total-small.png';
+    } else if (item.ГрадацияОстатков === '2') {
+      totalImg = 'sva/total-middle.png';
+    } else {
+      totalImg = 'sva/total-big.png';
+    }
+
     list += `<div class="table">
           <div class="table__section table__img">
             <img
@@ -87,7 +95,12 @@ function createTable(array) {
             </div>
             <div class="table__item table__item_bottom">
               <p>Остаток</p>
-              <h4 class="total">${item.Остаток} ${item.Единица}</h4>
+              <img
+                src="${totalImg}"
+                alt="${item.ГрадацияОстатков}"
+                class="total_foto"
+                id="base64imagenone"
+              />
             </div>
             <div class="table__item table__item_bottom">
               <p>Цена</p>
