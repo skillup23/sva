@@ -143,6 +143,54 @@ button {
   width: 25px;
 }
 
+.table__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.preloader {
+  width: 80px;
+  margin: 40% auto;
+}
+
+.letter__container {
+  padding-bottom: 5px;
+  display: flex;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  gap: 5px;
+}
+.letter__container::-webkit-scrollbar {
+  height: 10px;
+}
+/* Track */
+.letter__container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+/* Handle */
+.letter__container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 8px;
+}
+/* Handle on hover */
+.letter__container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.btn-style {
+  min-width: 50px;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 15px;
+  border: solid gray 1px;
+}
+
+.all__btn {
+  min-width: 75px;
+}
+
 @media (min-width: 768px) {
   .table__img {
     width: 150px;

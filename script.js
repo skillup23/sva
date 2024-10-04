@@ -3,7 +3,8 @@ const apiLink5 = 'http://localhost:3456/sva';
 const apiLink6 = 'http://localhost:3456/api/flowers';
 
 const tableContainer = document.querySelector('.table__container');
-const buttonUpdate = document.querySelector('.header__btn');
+
+let flowersArray = [];
 
 async function getResponse(api) {
   try {
@@ -11,6 +12,7 @@ async function getResponse(api) {
 
     if (response.ok) {
       const data = await response.json();
+      flowersArray = data;
 
       createTable(data);
     } else {
@@ -114,10 +116,71 @@ function createTable(array) {
   table.innerHTML = list;
 }
 
-// buttonUpdate.addEventListener('click', function () {
-//   tableContainer.innerHTML = '';
-//   getResponse(apiLink4);
-// });
+const letterCon = document.querySelector('.letter__container');
+
+function filterFlowers(letter) {
+  const flowersArrayFilter = flowersArray.filter(function (item) {
+    return item.Номенклатура.startsWith(letter);
+  });
+
+  createTable(flowersArrayFilter);
+}
+
+letterCon
+  .querySelector('.all__btn')
+  .addEventListener('click', () => createTable(flowersArray));
+
+letterCon
+  .querySelector('.a__btn')
+  .addEventListener('click', () => filterFlowers('А'));
+letterCon
+  .querySelector('.v__btn')
+  .addEventListener('click', () => filterFlowers('В'));
+letterCon
+  .querySelector('.g__btn')
+  .addEventListener('click', () => filterFlowers('Г'));
+letterCon
+  .querySelector('.d__btn')
+  .addEventListener('click', () => filterFlowers('Д'));
+letterCon
+  .querySelector('.k__btn')
+  .addEventListener('click', () => filterFlowers('К'));
+letterCon
+  .querySelector('.l__btn')
+  .addEventListener('click', () => filterFlowers('Л'));
+letterCon
+  .querySelector('.m__btn')
+  .addEventListener('click', () => filterFlowers('М'));
+letterCon
+  .querySelector('.n__btn')
+  .addEventListener('click', () => filterFlowers('Н'));
+letterCon
+  .querySelector('.p__btn')
+  .addEventListener('click', () => filterFlowers('П'));
+letterCon
+  .querySelector('.r__btn')
+  .addEventListener('click', () => filterFlowers('Р'));
+letterCon
+  .querySelector('.s__btn')
+  .addEventListener('click', () => filterFlowers('С'));
+letterCon
+  .querySelector('.t__btn')
+  .addEventListener('click', () => filterFlowers('Т'));
+letterCon
+  .querySelector('.f__btn')
+  .addEventListener('click', () => filterFlowers('Ф'));
+letterCon
+  .querySelector('.h__btn')
+  .addEventListener('click', () => filterFlowers('Х'));
+letterCon
+  .querySelector('.tc__btn')
+  .addEventListener('click', () => filterFlowers('Ц'));
+letterCon
+  .querySelector('.sh__btn')
+  .addEventListener('click', () => filterFlowers('Ш'));
+letterCon
+  .querySelector('.e2__btn')
+  .addEventListener('click', () => filterFlowers('Э'));
 
 // const tableTemplate = document.querySelector('#table-template').content;
 // const tableElement = tableTemplate.querySelector('.table').cloneNode(true);
