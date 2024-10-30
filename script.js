@@ -1,85 +1,78 @@
-const apiLink4 = 'https://skillup23-backend-timeweb-b537.twc1.net/api/flowers';
-const apiLink5 = 'http://localhost:3456/sva';
-const apiLink6 = 'http://localhost:3456/api/flowers';
+const apiLink4 = "https://skillup23-backend-timeweb-b537.twc1.net/api/flowers";
+const apiLink5 = "http://localhost:3456/sva";
+const apiLink6 = "http://localhost:3456/api/flowers";
 
-const tableContainer = document.querySelector('.table__container');
+const tableContainer = document.querySelector(".table__container");
+const loader = document.querySelector(".preloader__container");
+const buttonAdd = document.querySelector(".button__add");
 
 let flowersArray = [];
+let defaltLimit = 40;
+let defaltPage = 1;
 
-async function getResponse(api) {
+const hideLoader = () => {
+  loader.classList.remove("show");
+  buttonAdd.classList.add("show");
+};
+
+const showLoader = () => {
+  loader.classList.add("show");
+  buttonAdd.classList.remove("show");
+};
+
+async function getResponse(api, page, limit) {
+  showLoader();
+  const APIURL = `${api}/paginate?page=${page}&limit=${limit}`;
   try {
-    const response = await fetch(api);
+    const response = await fetch(APIURL);
 
     if (response.ok) {
       const data = await response.json();
       flowersArray = data;
 
-      createTable(data);
+      if (!data.next) {
+        buttonAdd.classList.add("disable");
+      }
+
+      createTable(data.results);
     } else {
-      console.log('Error HTTP: ' + response.status);
+      console.log("Error HTTP: " + response.status);
     }
   } catch (error) {
-    console.log('Ошибка в запросе:' + error.message);
+    console.log("Ошибка в запросе:" + error.message);
+  } finally {
+    hideLoader();
   }
 }
 
-// function getResponse(api) {
-//   fetch(api)
-//     .then((res) => {
-//       if (res.ok) {
-//         return res.json();
-//       } else {
-//         console.log("Error HTTP: " + response.status);
-//       }
-//     })
-//     .then((data) => {
-//       createTable(data);
-//     })
-//     .catch((error) => {
-//       console.log("Ошибка в запросе:" + error.message);
-//     });
-// }
-
-// function getResponse(api) {
-//   fetch(api, {
-//     headers: new Headers({
-//       Authorization: token,
-//     }),
-//     // mode: 'no-cors',
-//   })
-//     .then((response) => {
-//       if (!response.ok) throw new Error(response.status);
-//       return response.json();
-//     })
-//     .catch((error) => {
-//       console.log('Ошибка в запросе:' + error.message);
-//     });
-// }
-
-getResponse(apiLink4);
+getResponse(apiLink4, defaltPage, defaltLimit);
 
 function createTable(array) {
-  const table = document.querySelector('.table__container');
-
-  let list = '';
+  const table = document.querySelector(".table__container");
 
   array.forEach((item) => {
     if (!item.Картинка) {
-      foto = 'sva/placeholder.jpg';
+      foto =
+        "https://static.tildacdn.com/tild3561-3164-4465-b339-623231633235/placeholder.jpg";
     } else {
       foto = `data:image/jpeg;base64,${item.Картинка}`;
     }
 
-    if (item.ГрадацияОстатков === '1') {
-      totalImg = 'sva/total-small.png';
-    } else if (item.ГрадацияОстатков === '2') {
-      totalImg = 'sva/total-middle.png';
+    if (item.ГрадацияОстатков === "1") {
+      totalImg =
+        "https://static.tildacdn.com/tild3437-6333-4664-b233-633664376261/total-small.png";
+    } else if (item.ГрадацияОстатков === "2") {
+      totalImg =
+        "https://static.tildacdn.com/tild6636-3739-4736-a331-336632396536/total-middle.png";
     } else {
-      totalImg = 'sva/total-big.png';
+      totalImg =
+        "https://static.tildacdn.com/tild3832-6361-4430-a634-633836336162/total-big.png";
     }
 
-    list += `<div class="table">
-          <div class="table__section table__img">
+    const flowEl = document.createElement("flowers");
+    flowEl.classList.add("table");
+    flowEl.innerHTML = `
+            <div class="table__section table__img">
             <img
               src="${foto}"
               alt="Фотография"
@@ -106,81 +99,108 @@ function createTable(array) {
               />
             </div>
             <div class="table__item table__item_bottom">
+              <p>Ед.изм.</p>
+              <h4 class="unit">${item.Единица}</h4>
+            </div>
+            <div class="table__item table__item_bottom">
               <p>Цена</p>
               <h4 class="price">${item.Цена} руб.</h4>
             </div>
           </div>
-        </div>`;
+        `;
+    table.appendChild(flowEl);
   });
-
-  table.innerHTML = list;
+  hideLoader();
 }
 
-const letterCon = document.querySelector('.letter__container');
+buttonAdd.addEventListener("click", () => {
+  showLoader();
+  defaltPage++;
+  getResponse(apiLink4, defaltPage, defaltLimit);
+});
 
-function filterFlowers(letter) {
-  const flowersArrayFilter = flowersArray.filter(function (item) {
-    return item.Номенклатура.startsWith(letter);
-  });
+// window.addEventListener(
+//   "scroll",
+//   () => {
+//     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-  createTable(flowersArrayFilter);
-}
+//     if (scrollTop + clientHeight >= scrollHeight - 10) {
+//       showLoader();
+//       defaltPage++;
 
-letterCon
-  .querySelector('.all__btn')
-  .addEventListener('click', () => createTable(flowersArray));
+//       getResponse(apiLink4, defaltPage, 20);
+//     }
+//   },
+//   {
+//     passive: true,
+//   }
+// );
 
-letterCon
-  .querySelector('.a__btn')
-  .addEventListener('click', () => filterFlowers('А'));
-letterCon
-  .querySelector('.v__btn')
-  .addEventListener('click', () => filterFlowers('В'));
-letterCon
-  .querySelector('.g__btn')
-  .addEventListener('click', () => filterFlowers('Г'));
-letterCon
-  .querySelector('.d__btn')
-  .addEventListener('click', () => filterFlowers('Д'));
-letterCon
-  .querySelector('.k__btn')
-  .addEventListener('click', () => filterFlowers('К'));
-letterCon
-  .querySelector('.l__btn')
-  .addEventListener('click', () => filterFlowers('Л'));
-letterCon
-  .querySelector('.m__btn')
-  .addEventListener('click', () => filterFlowers('М'));
-letterCon
-  .querySelector('.n__btn')
-  .addEventListener('click', () => filterFlowers('Н'));
-letterCon
-  .querySelector('.p__btn')
-  .addEventListener('click', () => filterFlowers('П'));
-letterCon
-  .querySelector('.r__btn')
-  .addEventListener('click', () => filterFlowers('Р'));
-letterCon
-  .querySelector('.s__btn')
-  .addEventListener('click', () => filterFlowers('С'));
-letterCon
-  .querySelector('.t__btn')
-  .addEventListener('click', () => filterFlowers('Т'));
-letterCon
-  .querySelector('.f__btn')
-  .addEventListener('click', () => filterFlowers('Ф'));
-letterCon
-  .querySelector('.h__btn')
-  .addEventListener('click', () => filterFlowers('Х'));
-letterCon
-  .querySelector('.tc__btn')
-  .addEventListener('click', () => filterFlowers('Ц'));
-letterCon
-  .querySelector('.sh__btn')
-  .addEventListener('click', () => filterFlowers('Ш'));
-letterCon
-  .querySelector('.e2__btn')
-  .addEventListener('click', () => filterFlowers('Э'));
+// const letterCon = document.querySelector('.letter__container');
+
+// function filterFlowers(letter) {
+//   const flowersArrayFilter = flowersArray.filter(function (item) {
+//     return item.Номенклатура.startsWith(letter);
+//   });
+
+//   createTable(flowersArrayFilter);
+// }
+
+// letterCon
+//   .querySelector('.all__btn')
+//   .addEventListener('click', () => createTable(flowersArray));
+
+// letterCon
+//   .querySelector('.a__btn')
+//   .addEventListener('click', () => filterFlowers('А'));
+// letterCon
+//   .querySelector('.v__btn')
+//   .addEventListener('click', () => filterFlowers('В'));
+// letterCon
+//   .querySelector('.g__btn')
+//   .addEventListener('click', () => filterFlowers('Г'));
+// letterCon
+//   .querySelector('.d__btn')
+//   .addEventListener('click', () => filterFlowers('Д'));
+// letterCon
+//   .querySelector('.k__btn')
+//   .addEventListener('click', () => filterFlowers('К'));
+// letterCon
+//   .querySelector('.l__btn')
+//   .addEventListener('click', () => filterFlowers('Л'));
+// letterCon
+//   .querySelector('.m__btn')
+//   .addEventListener('click', () => filterFlowers('М'));
+// letterCon
+//   .querySelector('.n__btn')
+//   .addEventListener('click', () => filterFlowers('Н'));
+// letterCon
+//   .querySelector('.p__btn')
+//   .addEventListener('click', () => filterFlowers('П'));
+// letterCon
+//   .querySelector('.r__btn')
+//   .addEventListener('click', () => filterFlowers('Р'));
+// letterCon
+//   .querySelector('.s__btn')
+//   .addEventListener('click', () => filterFlowers('С'));
+// letterCon
+//   .querySelector('.t__btn')
+//   .addEventListener('click', () => filterFlowers('Т'));
+// letterCon
+//   .querySelector('.f__btn')
+//   .addEventListener('click', () => filterFlowers('Ф'));
+// letterCon
+//   .querySelector('.h__btn')
+//   .addEventListener('click', () => filterFlowers('Х'));
+// letterCon
+//   .querySelector('.tc__btn')
+//   .addEventListener('click', () => filterFlowers('Ц'));
+// letterCon
+//   .querySelector('.sh__btn')
+//   .addEventListener('click', () => filterFlowers('Ш'));
+// letterCon
+//   .querySelector('.e2__btn')
+//   .addEventListener('click', () => filterFlowers('Э'));
 
 // const tableTemplate = document.querySelector('#table-template').content;
 // const tableElement = tableTemplate.querySelector('.table').cloneNode(true);
@@ -235,3 +255,35 @@ letterCon
 // }
 
 // tableContainer.prepend(tableElement);
+// function getResponse(api) {
+//   fetch(api)
+//     .then((res) => {
+//       if (res.ok) {
+//         return res.json();
+//       } else {
+//         console.log("Error HTTP: " + response.status);
+//       }
+//     })
+//     .then((data) => {
+//       createTable(data);
+//     })
+//     .catch((error) => {
+//       console.log("Ошибка в запросе:" + error.message);
+//     });
+// }
+
+// function getResponse(api) {
+//   fetch(api, {
+//     headers: new Headers({
+//       Authorization: token,
+//     }),
+//     // mode: 'no-cors',
+//   })
+//     .then((response) => {
+//       if (!response.ok) throw new Error(response.status);
+//       return response.json();
+//     })
+//     .catch((error) => {
+//       console.log('Ошибка в запросе:' + error.message);
+//     });
+// }
