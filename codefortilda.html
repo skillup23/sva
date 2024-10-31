@@ -1,0 +1,449 @@
+<!-- <style>
+    html,
+    body {
+      font-family: Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      height: 100%;
+      margin: 0;
+      background-color: #fff;
+      color: #000000;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      margin-block-start: 0;
+      margin-block-end: 0;
+    }
+    
+    input,
+    button {
+      border: none;
+    }
+    
+    .header {
+      max-width: 800px;
+      /* height: 80px; */
+      margin: auto;
+      display: flex;
+      padding: 0 20px;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    
+    .header__logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .header__logo {
+      width: 160px;
+      margin: auto;
+      /* -webkit-filter: invert(1);
+      filter: invert(1); */
+    }
+    
+    .container {
+      max-width: 800px;
+      padding: 0 10px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    
+    .header__btn {
+      font-size: 0.8em;
+      width: 150px;
+      height: 50px;
+      color: #de1222;
+      background-color: #ffdf0a;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+    
+    .header__btn:hover {
+      background-color: #d5b900;
+    }
+    
+    .table {
+      margin-bottom: 10px;
+      padding: 10px 10px;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      border: solid gray 1px;
+      border-radius: 15px;
+    }
+    
+    .table__section {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 60%;
+      margin: auto;
+    }
+    
+    .table__section_bottom {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .table__item {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: flex-start;
+    }
+    .table__item h4 {
+      font-size: 16px;
+    }
+    .table__item p {
+      font-size: 14px;
+      color: dimgray;
+    }
+    
+    .table__item_bottom {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .table__img {
+      width: 40%;
+      display: flex;
+    }
+    
+    .nomenclature {
+      text-align: start;
+    }
+    
+    .card__foto {
+      width: 100%;
+      margin: 0 auto;
+      border-radius: 15px;
+    }
+    
+    /* .total {
+      display: flex;
+      gap: 3px;
+      align-items: flex-end;
+    }
+    
+    .total-title {
+      font-size: 14px !important;
+      margin-bottom: -2px;
+    } */
+    
+    .total_foto {
+      width: 25px;
+    }
+    
+    .table__container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .preloader__container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      opacity: 0;
+    }
+    .preloader__container.show {
+      opacity: 1;
+    }
+    
+    .preloader {
+      width: 120px;
+      margin: 40% auto;
+    }
+    
+    .letter__container {
+      padding-bottom: 5px;
+      display: flex;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      gap: 5px;
+      display: none;
+    }
+    .letter__container::-webkit-scrollbar {
+      height: 10px;
+    }
+    /* Track */
+    .letter__container::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+    /* Handle */
+    .letter__container::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 8px;
+    }
+    /* Handle on hover */
+    .letter__container::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    
+    .btn-style {
+      min-width: 50px;
+      height: 50px;
+      font-size: 20px;
+      border-radius: 15px;
+      border: solid #000000 1px;
+      cursor: pointer;
+      background-color: #000000;
+      color: #f1f1f1;
+    }
+    
+    .all__btn {
+      min-width: 75px;
+    }
+    
+    @media (min-width: 768px) {
+      .table__img {
+        width: 150px;
+        margin: 0;
+      }
+      .table__item h4 {
+        font-size: 18px;
+      }
+      .table__item p {
+        font-size: 16px;
+      }
+    }
+    </style>
+
+
+<body>
+    <header class="header">
+      <img src="https://static.tildacdn.com/tild6431-6238-4034-a436-666165383966/logo.jpg" alt="Лого" class="header__logo" />
+    </header>
+
+    <main class="container">
+      <section class="wrapper">
+        <div class="letter__container">
+          <button class="all__btn btn-style">Все</button>
+          <button class="a__btn btn-style">А</button>
+          <button class="v__btn btn-style">В</button>
+          <button class="g__btn btn-style">Г</button>
+          <button class="d__btn btn-style">Д</button>
+          <button class="k__btn btn-style">К</button>
+          <button class="l__btn btn-style">Л</button>
+          <button class="m__btn btn-style">М</button>
+          <button class="n__btn btn-style">Н</button>
+          <button class="p__btn btn-style">П</button>
+          <button class="r__btn btn-style">Р</button>
+          <button class="s__btn btn-style">С</button>
+          <button class="t__btn btn-style">Т</button>
+          <button class="f__btn btn-style">Ф</button>
+          <button class="h__btn btn-style">Х</button>
+          <button class="tc__btn btn-style">Ц</button>
+          <button class="sh__btn btn-style">Ш</button>
+          <button class="e2__btn btn-style">Э</button>
+        </div>
+
+        <div class="table__container">
+        </div>
+        <div class="preloader__container">
+          <img src="https://static.tildacdn.com/tild6561-3432-4237-b231-616437396262/Flowers-preloader2.gif" class="preloader" />
+        </div>
+      </section>
+    </main>
+  </body>
+
+
+
+  <script>
+    const apiLink4 = 'https://skillup23-backend-timeweb-b537.twc1.net/api/flowers';
+const apiLink5 = 'http://localhost:3456/sva';
+const apiLink6 = 'http://localhost:3456/api/flowers';
+
+const tableContainer = document.querySelector('.table__container');
+const loader = document.querySelector('.preloader__container');
+
+let flowersArray = [];
+let defaltLimit = 20;
+let defaltPage = 1;
+
+const hideLoader = () => {
+  loader.classList.remove('show');
+};
+
+const showLoader = () => {
+  loader.classList.add('show');
+};
+
+async function getResponse(api, page, limit) {
+  showLoader();
+  const APIURL = `${api}/paginate?page=${page}&limit=${limit}`;
+  try {
+    const response = await fetch(APIURL);
+
+    if (response.ok) {
+      const data = await response.json();
+      flowersArray = data;
+
+      createTable(data.results);
+    } else {
+      console.log('Error HTTP: ' + response.status);
+    }
+  } catch (error) {
+    console.log('Ошибка в запросе:' + error.message);
+  } finally {
+    hideLoader();
+  }
+}
+
+getResponse(apiLink4, defaltPage, 20);
+
+function createTable(array) {
+  const table = document.querySelector('.table__container');
+
+  array.forEach((item) => {
+    if (!item.Картинка) {
+      foto = 'https://static.tildacdn.com/tild3561-3164-4465-b339-623231633235/placeholder.jpg';
+    } else {
+      foto = `data:image/jpeg;base64,${item.Картинка}`;
+    }
+
+    if (item.ГрадацияОстатков === '1') {
+      totalImg = 'https://static.tildacdn.com/tild3437-6333-4664-b233-633664376261/total-small.png';
+    } else if (item.ГрадацияОстатков === '2') {
+      totalImg = 'https://static.tildacdn.com/tild6636-3739-4736-a331-336632396536/total-middle.png';
+    } else {
+      totalImg = 'https://static.tildacdn.com/tild3832-6361-4430-a634-633836336162/total-big.png';
+    }
+
+    const flowEl = document.createElement('flowers');
+    flowEl.classList.add('table');
+    flowEl.innerHTML = `
+            <div class="table__section table__img">
+            <img
+              src="${foto}"
+              alt="Фотография"
+              class="card__foto"
+              id="base64imagenone"
+            />
+          </div>
+
+          <div class="table__section">
+            <div class="table__item">
+              <h4 class="nomenclature">${item.Номенклатура}</h4>
+            </div>
+            <div class="table__item table__item_bottom">
+              <p>Характеристика</p>
+              <h4 class="characteristic">${item.Характеристика}</h4>
+            </div>
+            <div class="table__item table__item_bottom">
+              <p>Остаток</p>
+              <img
+                src="${totalImg}"
+                alt="${item.ГрадацияОстатков}"
+                class="total_foto"
+                id="base64imagenone"
+              />
+            </div>
+            <div class="table__item table__item_bottom">
+              <p>Ед.изм.</p>
+              <h4 class="unit">${item.Единица}</h4>
+            </div>
+            <div class="table__item table__item_bottom">
+              <p>Цена</p>
+              <h4 class="price">${item.Цена} руб.</h4>
+            </div>
+          </div>
+        `;
+    table.appendChild(flowEl);
+  });
+  hideLoader();
+}
+
+const letterCon = document.querySelector('.letter__container');
+
+function filterFlowers(letter) {
+  const flowersArrayFilter = flowersArray.filter(function (item) {
+    return item.Номенклатура.startsWith(letter);
+  });
+
+  createTable(flowersArrayFilter);
+}
+
+letterCon
+  .querySelector('.all__btn')
+  .addEventListener('click', () => createTable(flowersArray));
+
+letterCon
+  .querySelector('.a__btn')
+  .addEventListener('click', () => filterFlowers('А'));
+letterCon
+  .querySelector('.v__btn')
+  .addEventListener('click', () => filterFlowers('В'));
+letterCon
+  .querySelector('.g__btn')
+  .addEventListener('click', () => filterFlowers('Г'));
+letterCon
+  .querySelector('.d__btn')
+  .addEventListener('click', () => filterFlowers('Д'));
+letterCon
+  .querySelector('.k__btn')
+  .addEventListener('click', () => filterFlowers('К'));
+letterCon
+  .querySelector('.l__btn')
+  .addEventListener('click', () => filterFlowers('Л'));
+letterCon
+  .querySelector('.m__btn')
+  .addEventListener('click', () => filterFlowers('М'));
+letterCon
+  .querySelector('.n__btn')
+  .addEventListener('click', () => filterFlowers('Н'));
+letterCon
+  .querySelector('.p__btn')
+  .addEventListener('click', () => filterFlowers('П'));
+letterCon
+  .querySelector('.r__btn')
+  .addEventListener('click', () => filterFlowers('Р'));
+letterCon
+  .querySelector('.s__btn')
+  .addEventListener('click', () => filterFlowers('С'));
+letterCon
+  .querySelector('.t__btn')
+  .addEventListener('click', () => filterFlowers('Т'));
+letterCon
+  .querySelector('.f__btn')
+  .addEventListener('click', () => filterFlowers('Ф'));
+letterCon
+  .querySelector('.h__btn')
+  .addEventListener('click', () => filterFlowers('Х'));
+letterCon
+  .querySelector('.tc__btn')
+  .addEventListener('click', () => filterFlowers('Ц'));
+letterCon
+  .querySelector('.sh__btn')
+  .addEventListener('click', () => filterFlowers('Ш'));
+letterCon
+  .querySelector('.e2__btn')
+  .addEventListener('click', () => filterFlowers('Э'));
+
+window.addEventListener(
+  'scroll',
+  () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+    if (scrollTop + clientHeight >= scrollHeight - 5) {
+      showLoader();
+      defaltPage++;
+      getResponse(apiLink4, defaltPage, 20);
+    }
+  },
+  {
+    passive: true,
+  }
+);
+</script> -->
