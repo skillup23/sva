@@ -1,58 +1,40 @@
-const apiLink4 = 'https://skillup23-backend-timeweb-b537.twc1.net/api/flowers';
+const apiLink44 = 'https://skillup23-backend-timeweb-b537.twc1.net/api/flowers';
 const apiLink5 = 'http://localhost:3456/sva';
-const apiLink6 = 'http://localhost:3456/api/flowers';
+const apiLink4 = 'http://localhost:3456/api/flowers';
 
 const tableContainer = document.querySelector('.table__container');
 const loader = document.querySelector('.preloader__container');
 const buttonAdd = document.querySelector('.button__add');
+const letterCon = document.querySelector('.letter__container');
 
-let flowersArray = [];
+// let flowersArrayPagination = [];
+
+// Массив со всеми данными
+let flowersArrayAll = [];
+
+// Значения для пагинации по умолчанию
 let defaltLimit = 40;
 let defaltPage = 1;
 
-// const hideLoader = () => {
-//   loader.classList.remove('show');
-//   // buttonAdd.classList.add('show');
-// };
+// Создание кнопок для фильтрации массива
+function createFilterButtons(array) {
+  array.forEach((item) => {
+    const filter = document.createElement('firstword');
+    filter.classList.add('firstword');
+    filter.innerHTML = `<button class="btn-style">${item}</button>`;
+    letterCon.appendChild(filter);
 
-// const showLoader = () => {
-//   loader.classList.add('show');
-//   // buttonAdd.classList.remove('show');
-// };
-
-async function getResponse(api, page, limit) {
-  // showLoader();
-  const APIURL = `${api}/paginate?page=${page}&limit=${limit}`;
-  try {
-    const response = await fetch(APIURL);
-
-    if (response.ok) {
-      const data = await response.json();
-      flowersArray = data;
-
-      if (!data.next) {
-        buttonAdd.classList.add('disable');
-      }
-
-      createTable(data.results);
-    } else {
-      console.log('Error HTTP: ' + response.status);
-    }
-  } catch (error) {
-    console.log('Ошибка в запросе:' + error.message);
-  } finally {
-    // hideLoader();
-    buttonAdd.disabled = false;
-    buttonAdd.textContent = 'Загрузить еще';
-  }
+    filter
+      .querySelector('.btn-style')
+      .addEventListener('click', function (evt) {
+        const elementName = evt.target.closest('.btn-style');
+        filterFlowers(elementName.textContent);
+      });
+  });
 }
 
-getResponse(apiLink4, defaltPage, defaltLimit);
-// showLoader();
-
+// Отображение цветов при пагинации
 function createTable(array) {
-  const table = document.querySelector('.table__container');
-
   array.forEach((item) => {
     if (!item.Картинка) {
       foto =
@@ -111,18 +93,120 @@ function createTable(array) {
             </div>
           </div>
         `;
-    table.appendChild(flowEl);
+    tableContainer.appendChild(flowEl);
   });
-  // hideLoader();
 }
 
+// Функция запроса всех данных для фильтрации
+async function getResponseAll(api) {
+  const APIURL = api;
+  try {
+    const response = await fetch(APIURL);
+
+    if (response.ok) {
+      const data = await response.json();
+      flowersArrayAll = data;
+
+      const nameFlowers = flowersArrayAll.map((item) => {
+        var [name, model] = item.Номенклатура.split(/\s/);
+        return name;
+      });
+
+      let nameFlowersFirst = new Set(nameFlowers);
+      createFilterButtons(nameFlowersFirst);
+
+      // document.querySelector('.table__container').innerHTML = '';
+    } else {
+      console.log('Error HTTP: ' + response.status);
+    }
+  } catch (error) {
+    console.log('Ошибка в запросе:' + error.message);
+  } finally {
+    // console.log('удалить кнопку загрузить еще');
+  }
+}
+
+// Функция запроса страниц пагинации
+async function getResponse(api, page, limit) {
+  const APIURL = `${api}/paginate?page=${page}&limit=${limit}`;
+  try {
+    const response = await fetch(APIURL);
+
+    if (response.ok) {
+      const data = await response.json();
+      // flowersArrayPagination = data;
+
+      if (!data.next) {
+        buttonAdd.classList.add('disable');
+      }
+
+      createTable(data.results);
+    } else {
+      console.log('Error HTTP: ' + response.status);
+    }
+  } catch (error) {
+    console.log('Ошибка в запросе:' + error.message);
+  } finally {
+    buttonAdd.disabled = false;
+    buttonAdd.textContent = 'Загрузить еще';
+  }
+}
+
+// Функция фильтрации
+async function filterFlowers(letter) {
+  tableContainer.innerHTML = '';
+  // await getResponseAll(apiLink4);
+  const flowersArrayFilter = flowersArrayAll.filter(function (item) {
+    return item.Номенклатура.startsWith(letter);
+  });
+
+  await createTable(flowersArrayFilter);
+  buttonAdd.classList.add('disable');
+}
+
+// Запросы
+getResponseAll(apiLink4);
+getResponse(apiLink4, defaltPage, defaltLimit);
+
+// Слушатель кнопки "Загрузить еще"
 buttonAdd.addEventListener('click', () => {
-  // showLoader();
   buttonAdd.disabled = true;
   buttonAdd.textContent = 'Загрузка...';
   defaltPage++;
   getResponse(apiLink4, defaltPage, defaltLimit);
 });
+
+// Слушатели кнопок фильтрации
+letterCon.querySelector('.all__btn').addEventListener('click', function () {
+  buttonAdd.classList.remove('disable');
+  tableContainer.innerHTML = '';
+  defaltLimit = 40;
+  defaltPage = 1;
+  getResponse(apiLink4, defaltPage, defaltLimit);
+});
+
+// letterCon.querySelectorAll('.btn-style').addEventListener('click', textBtn());
+
+// function textBtn() {
+//   const elementName = evt.target
+//     .closest('.btn-style')
+//     .querySelector('.btn-style');
+//   return console.log(elementName.textContent);
+// }
+// letterCon
+//   .querySelectorAll('.btn-style')
+//   .addEventListener('click', function (evt) {
+//     const elementName = evt.target.closest('.btn-style');
+//     console.log(elementName.textContent);
+//   });
+
+// const buttonItems = document.querySelectorAll('.btn-style');
+
+// buttonItems.forEach((buttonItem) =>
+//   buttonItem.addEventListener('click', (e) =>
+//     console.log(buttonItem.textContent)
+//   )
+// );
 
 // window.addEventListener(
 //   'scroll',
@@ -292,3 +376,13 @@ buttonAdd.addEventListener('click', () => {
 // letterCon
 //   .querySelector('.e2__btn')
 //   .addEventListener('click', () => filterFlowers('Э'));
+
+// const hideLoader = () => {
+//   loader.classList.remove('show');
+//   // buttonAdd.classList.add('show');
+// };
+
+// const showLoader = () => {
+//   loader.classList.add('show');
+//   // buttonAdd.classList.remove('show');
+// };
