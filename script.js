@@ -1,6 +1,6 @@
-const apiLink44 = 'https://skillup23-backend-timeweb-b537.twc1.net/api/flowers';
+const apiLink4 = 'https://skillup23-backend-timeweb-b537.twc1.net/api/flowers';
 const apiLink5 = 'http://localhost:3456/sva';
-const apiLink4 = 'http://localhost:3456/api/flowers';
+const apiLink6 = 'http://localhost:3456/api/flowers';
 
 const tableContainer = document.querySelector('.table__container');
 const loader = document.querySelector('.preloader__container');
