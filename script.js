@@ -7,11 +7,6 @@ const loader = document.querySelector('.preloader__container');
 const buttonAdd = document.querySelector('.button__add');
 const letterCon = document.querySelector('.letter__container');
 
-// let flowersArrayPagination = [];
-
-// Массив со всеми данными
-let flowersArrayAll = [];
-
 // Значения для пагинации по умолчанию
 let defaltLimit = 40;
 let defaltPage = 1;
@@ -33,7 +28,7 @@ function createFilterButtons(array) {
   });
 }
 
-// Отображение цветов при пагинации
+// Создание карточек Цветов
 function createTable(array) {
   array.forEach((item) => {
     if (!item.Картинка) {
@@ -97,44 +92,14 @@ function createTable(array) {
   });
 }
 
-// Функция запроса всех данных для фильтрации
-async function getResponseAll(api) {
-  const APIURL = api;
+// Функция запроса страниц пагинации и частичного массива цветов
+async function getResponse(page, limit) {
+  const APIURL = `${apiLink4}/paginate?page=${page}&limit=${limit}`;
   try {
     const response = await fetch(APIURL);
 
     if (response.ok) {
       const data = await response.json();
-      flowersArrayAll = data;
-
-      const nameFlowers = flowersArrayAll.map((item) => {
-        var [name, model] = item.Номенклатура.split(/\s/);
-        return name;
-      });
-
-      let nameFlowersFirst = new Set(nameFlowers);
-      createFilterButtons(nameFlowersFirst);
-
-      // document.querySelector('.table__container').innerHTML = '';
-    } else {
-      console.log('Error HTTP: ' + response.status);
-    }
-  } catch (error) {
-    console.log('Ошибка в запросе:' + error.message);
-  } finally {
-    // console.log('удалить кнопку загрузить еще');
-  }
-}
-
-// Функция запроса страниц пагинации
-async function getResponse(api, page, limit) {
-  const APIURL = `${api}/paginate?page=${page}&limit=${limit}`;
-  try {
-    const response = await fetch(APIURL);
-
-    if (response.ok) {
-      const data = await response.json();
-      // flowersArrayPagination = data;
 
       if (!data.next) {
         buttonAdd.classList.add('disable');
@@ -152,39 +117,113 @@ async function getResponse(api, page, limit) {
   }
 }
 
-// Функция фильтрации
-async function filterFlowers(letter) {
-  tableContainer.innerHTML = '';
-  // await getResponseAll(apiLink4);
-  const flowersArrayFilter = flowersArrayAll.filter(function (item) {
-    return item.Номенклатура.startsWith(letter);
-  });
+// Функция запроса всех наименований цветов
+async function getResponseNameFlowers() {
+  const APIURL = `${apiLink4}/name`;
+  try {
+    const response = await fetch(APIURL);
 
-  await createTable(flowersArrayFilter);
+    if (response.ok) {
+      const data = await response.json();
+
+      let nameFilters = new Set(data);
+      createFilterButtons(nameFilters);
+    } else {
+      console.log('Error HTTP: ' + response.status);
+    }
+  } catch (error) {
+    console.log('Ошибка в запросе:' + error.message);
+  } finally {
+  }
+}
+
+// Функция фильтрации цветов по имени
+async function getResponseFilterName(name) {
+  const APIURL = `${apiLink4}/filter?Номенклатура=${name}`;
+
+  buttonAdd.classList.remove('disable');
+  buttonAdd.disabled = true;
+  buttonAdd.textContent = 'Загрузка...';
+  try {
+    const response = await fetch(APIURL);
+
+    if (response.ok) {
+      const data = await response.json();
+
+      return data;
+    } else {
+      console.log('Error HTTP: ' + response.status);
+    }
+  } catch (error) {
+    console.log('Ошибка в запросе:' + error.message);
+  } finally {
+  }
+}
+
+// Функция фильтрации
+async function filterFlowers(nameButton) {
+  tableContainer.innerHTML = '';
+
+  const flowersArrayFilter = await getResponseFilterName(nameButton);
+  createTable(flowersArrayFilter);
+
   buttonAdd.classList.add('disable');
 }
 
 // Запросы
-getResponseAll(apiLink4);
-getResponse(apiLink4, defaltPage, defaltLimit);
+getResponse(defaltPage, defaltLimit);
+getResponseNameFlowers();
 
 // Слушатель кнопки "Загрузить еще"
 buttonAdd.addEventListener('click', () => {
   buttonAdd.disabled = true;
   buttonAdd.textContent = 'Загрузка...';
   defaltPage++;
-  getResponse(apiLink4, defaltPage, defaltLimit);
+  getResponse(defaltPage, defaltLimit);
 });
 
-// Слушатели кнопок фильтрации
+// Слушателm кнопки Показать все
 letterCon.querySelector('.all__btn').addEventListener('click', function () {
   buttonAdd.classList.remove('disable');
   tableContainer.innerHTML = '';
   defaltLimit = 40;
   defaltPage = 1;
-  getResponse(apiLink4, defaltPage, defaltLimit);
+  getResponse(defaltPage, defaltLimit);
 });
 
+// getResponseAll(apiLink4);
+// let flowersArrayPagination = [];
+
+// Массив со всеми данными
+// let flowersArrayAll = [];
+// Функция запроса всех данных для фильтрации
+// async function getResponseAll(api) {
+//   const APIURL = api;
+//   try {
+//     const response = await fetch(APIURL);
+
+//     if (response.ok) {
+//       const data = await response.json();
+//       flowersArrayAll = data;
+
+//       const nameFlowers = flowersArrayAll.map((item) => {
+//         var [name, model] = item.Номенклатура.split(/\s/);
+//         return name;
+//       });
+
+//       let nameFlowersFirst = new Set(nameFlowers);
+//       createFilterButtons(nameFlowersFirst);
+
+//       // document.querySelector('.table__container').innerHTML = '';
+//     } else {
+//       console.log('Error HTTP: ' + response.status);
+//     }
+//   } catch (error) {
+//     console.log('Ошибка в запросе:' + error.message);
+//   } finally {
+//     // console.log('удалить кнопку загрузить еще');
+//   }
+// }
 // letterCon.querySelectorAll('.btn-style').addEventListener('click', textBtn());
 
 // function textBtn() {
