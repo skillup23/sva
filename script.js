@@ -1,4 +1,5 @@
-const apiLink4 = 'https://skillup23-backend-timeweb-b537.twc1.net/api/flowers';
+const apiLink4 = 'https://skillup23-backend-timeweb-829c.twc1.net/api/flowers';
+// const apiLink4 = 'https://skillup23-backend-timeweb-b537.twc1.net/api/flowers';
 const apiLink5 = 'http://localhost:3456/sva';
 const apiLink6 = 'http://localhost:3456/api/flowers';
 
@@ -186,7 +187,7 @@ buttonAdd.addEventListener('click', () => {
 letterCon.querySelector('.all__btn').addEventListener('click', function () {
   buttonAdd.classList.remove('disable');
   tableContainer.innerHTML = '';
-  defaltLimit = 40;
+  // defaltLimit = 40;
   defaltPage = 1;
   getResponse(defaltPage, defaltLimit);
 });
